@@ -7,7 +7,8 @@
 - Basic Functionalities - Any Script
 
 **INVOLVEMENT OF DATA STRUCTURES:**
-- Queue: Handling Requests and Responses
+- Queue: Storing Requests and Responses
+- Unordered Map: Storing Client Information
 
 **LIMITATIONS:**
 1. Server should be listening at a predefined port number.
