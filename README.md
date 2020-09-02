@@ -1,9 +1,9 @@
 # LAB ADMIN - For Computer Labs
 **FEATURES:**
--File Transfer
--User Information
--Loopback Functionality - Checking if Client is ON
--Basic Functionalities - Any Script
+- File Transfer
+- User Information
+- Loopback Functionality - Checking if Client is ON
+- Basic Functionalities - Any Script
 
 **IMPLEMENTATION:**
 
