@@ -7,7 +7,7 @@
 - Basic Functionalities - Any Script
 
 ## TECHNOLOGY USED:
-- Python(Qt5, Beautiful Soup): User interface and user authentication webscraping WCE Moodle.
+- Python(Qt5, Beautiful Soup): User interface and user authentication by webscraping WCE Moodle.
 - C Language(Sockets, IPC Message Queues): All core functionalities of application.
 
 ## INVOLVEMENT OF DATA STRUCTURES:
