@@ -9,7 +9,7 @@
 
 
 **INVOLVEMENT OF DATA STRUCTURES:**
-Queue  - Handling Requests and Responses
+- Queue: Handling Requests and Responses
 
 **LIMITATIONS:**
 1. Server should be listening at a predefined port number.
