@@ -10,11 +10,10 @@ char year[10];
 char branch[50];
 char prn[30];
 char name[200];
-int type;
 char date[50];
 char time[50];
 struct _message message;
-
+enum _signal_type{LOGOUT,LOGIN} signal_type;
 void init_message_queue()
 {
 	key = ftok("Socket_Sender", 65);
@@ -38,7 +37,7 @@ void user_auth_start()
 	strcpy(message.message_data.data.user_info.NAME , name);
 	strcpy(message.message_data.data.user_info.DATE , date);
 	strcpy(message.message_data.data.user_info.TIME , time);
-	message.message_data.data.user_info.TYPE = type;
+	message.message_data.data.user_info.TYPE = signal_type;
 	
 	post_message_queue(&message);
 	/*
