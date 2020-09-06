@@ -32,13 +32,13 @@ void user_auth_start()
 	
 	init_message_queue();
 	
-	message.message_data.data.user_info.YEAR=year;
-	message.message_data.data.user_info.BRANCH=branch;
-	message.message_data.data.user_info.PRN=prn;
-	message.message_data.data.user_info.NAME=name;
-	message.message_data.data.user_info.TYPE=type;
-	message.message_data.data.user_info.DATE=date;
-	message.message_data.data.user_info.TIME=time;
+	strcpy(message.message_data.data.user_info.YEAR , year);
+	strcpy(message.message_data.data.user_info.BRANCH , branch);
+	strcpy(message.message_data.data.user_info.PRN , prn);
+	strcpy(message.message_data.data.user_info.NAME , name);
+	strcpy(message.message_data.data.user_info.DATE , date);
+	strcpy(message.message_data.data.user_info.TIME , time);
+	message.message_data.data.user_info.TYPE = type;
 	
 	post_message_queue(&message);
 	/*
@@ -50,8 +50,15 @@ void user_auth_start()
 
 void user_auth_end()	
 {
+	strcpy(message.message_data.data.user_info.YEAR , year);
+	strcpy(message.message_data.data.user_info.BRANCH , branch);
+	strcpy(message.message_data.data.user_info.PRN , prn);
+	strcpy(message.message_data.data.user_info.NAME , name);
+	strcpy(message.message_data.data.user_info.DATE , date);
+	strcpy(message.message_data.data.user_info.TIME , time);
+	message.message_data.data.user_info.TYPE = type;
+	
 	post_message_queue(&message);
-	exit(0);
 	/*
 		Pick PRN and Name from user.txt and create message to send server...
 		1. Message Create of type User Info
