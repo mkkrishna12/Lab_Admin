@@ -34,18 +34,24 @@ void file_transfer(struct _message message){
         if(file_name[i]!='\0'){
             struct stat st = {0};
             if (stat(file_trans, &st) == -1) {
-                if(WINDOWS==1){
+                /*if(WINDOWS==1){
                     if(mkdir(file_trans) == -1){
                         printf("\nFolder Not created");
                         return 0;
                     }
                 }
-                /*if(LINUX==1){
+                if(LINUX==1){
                     if(mkdir(file_trans,0777) == -1){
                         printf("\nFolder Not created");
                         return;
                     }
                 }*/
+                
+                #ifdef __linux__
+                     mkdir(file_trans, 0777);
+                #else
+                    _mkdir(file_trans);
+                #endif
             }
             file_trans[k]=file_name[i];
             k++;
