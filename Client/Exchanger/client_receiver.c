@@ -11,6 +11,10 @@
 
 #define my_port "8090"
 
+#define Script_Windows_Path "C://Lab_Admin/Scripts/windows_script_handler"
+
+#define Script_Linux_Path "/Lab_Admin/Scripts/linux_script_handler"
+
 // For Message Queues
 key_t key;
 int msgid;
@@ -100,6 +104,50 @@ void post_message_queue(struct _message message)
 	msgsnd(msgid, &message, sizeof(message), 0);
 }
 
+
+void script_handler(struct _message message)
+{
+    if(WINDOWS)
+    {
+        char command[1024]={0};
+        strcpy(command,Script_Windows_Path);
+        strcpy(command," ");
+        memcpy(command,(char*)&message,sizeof(message));
+        system(command);
+    }
+    else if(LINUX)
+    {
+        system("");
+    }
+    else
+    {
+        printf("Operating System Error!!!\n");
+    }
+}
+
+void loopback_handler(struct _message message)
+{
+    // Handeling Loopback Messages
+}
+
+void file_transfer_handler(struct _message message)
+{
+    if(WINDOWS)
+    {
+        system("");
+    }
+    else if(LINUX)
+    {
+        system("");
+    }
+    else
+    {
+        printf("Operating System Error!!!\n");
+    }
+}
+
+
+
 int main()
 {
 	init_message_queue();
@@ -112,18 +160,29 @@ int main()
 
 	while(1)
 	{
-		//receive();
+		receive();
 
 		struct _message* message;
 
 		message=(struct _message*)receive_buf;
-
-		printf("Enter Message Type: ");
-		scanf("%ld",&message->message_type);
-
-		post_message_queue(*message);
-
-		//post_message_queue((struct _message*)receive_buf);
+		
+		switch(message.message_type)
+		{
+		    case 2:
+		        script_handler(message);
+		        break;
+		        
+		    case 4:
+		        loopback_handler(message);
+		        break;
+		        
+		    case 3:
+		        file_transfer_handler(message);
+		        break;
+		        
+		    default:
+		        printf("Wrong Type of Message Received!!!!\n");
+		}
 	}
 
 

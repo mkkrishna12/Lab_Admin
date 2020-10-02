@@ -82,21 +82,52 @@ void get_message_queue()
 	msgrcv(msgid, &message, sizeof(message), 0, 0);
 }
 
+void init_client()
+{
+    struct _message message;
+    
+    message.message_type=0;
+    
+    message.message_data.ip="";
+    
+    message.message_data.port="";
+    
+    if(WINDOWS)
+    {
+        message.message_data.os_type=WINDOWS;
+    }
+    else if(LINUX)
+    {
+        message.message_data.os_type=LINUX;
+    }
+    else
+    {
+        message.message_data.os_type=NONE;
+    }
+    
+    message.message_data.data.client_info.ip="";
+    
+    message.message_data.data.client_info.port="";
+    
+    send_buf=(char*)message;
+    
+    send_to_server();
+    
+}
+
 int main()
 {
 	init_message_queue();
+	
+	init_client();
 
 	// System Call for opening Lab Admin
 
 	while (1)
 	{
 		get_message_queue();
-		printf("Message Type: ");
-		printf("%ld\n",message.message_type);
 		send_buf = (char*)&message;
-		/*
 		send_to_server();
-		*/
 	}
 
 

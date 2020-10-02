@@ -1,3 +1,5 @@
+enum os{LINUX,WINDOWS,NONE};
+
 struct  _user_info {
 	char PRN[30];
 };
@@ -31,7 +33,7 @@ union core_msg {
 struct _data{
 	char ip[20];
 	char port[6];
-	long int os_type;
+	enum os os_type;
 	union core_msg data;
 };
 
