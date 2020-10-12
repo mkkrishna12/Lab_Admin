@@ -15,6 +15,10 @@
 
 #define Script_Linux_Path "/Lab_Admin/Scripts/linux_script_handler"
 
+#define windows_file_path "C://Lab_Admin/File_Transfer/file_transfer_win"
+
+#define linux_file_path "~/Lab_Admin/File_Transfer/file_transfer_linux"
+
 // For Message Queues
 key_t key;
 int msgid;
@@ -132,13 +136,20 @@ void loopback_handler(struct _message message)
 
 void file_transfer_handler(struct _message message)
 {
+    char file_arg[1024]={0};
     if(WINDOWS)
     {
-        system("file_transfer_win.exe");
+        memcpy(file_arg,windows_file_path);
+    	strcat(file_arg," ");
+        strcat(file_arg,(char*)&message);
+        system(file_arg);
     }
     else if(LINUX)
     {
-        system("file_transfer_linux");
+        memcpy(file_arg,linux_file_path);
+    	strcat(file_arg," ");
+        strcat(file_arg,(char*)&message);
+        system(file_arg);
     }
     else
     {
