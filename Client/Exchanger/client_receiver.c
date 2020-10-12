@@ -134,11 +134,11 @@ void file_transfer_handler(struct _message message)
 {
     if(WINDOWS)
     {
-        system("");
+        system("file_transfer_win.exe");
     }
     else if(LINUX)
     {
-        system("");
+        system("file_transfer_linux.exe");
     }
     else
     {
