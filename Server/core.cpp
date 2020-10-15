@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "dataset.h"
+#include "message.h"
 using namespace std;
 
 map<KEY, VALUE*> Database;
