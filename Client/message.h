@@ -1,12 +1,5 @@
-enum os{LINUX,WINDOWS,NONE};
-
 struct  _user_info {
 	char PRN[30];
-};
-
-struct _client_info {
-	char ip[30];
-	char port[10];
 };
 
 struct _script {
@@ -22,19 +15,23 @@ struct _loopback_message {
 	char data[1024];
 };
 
-union core_msg {
+union _msg {
 	struct _user_info user_info;
-	struct _client_info client_info;
 	struct _script script;
 	struct _file_transfer file;
 	struct _loopback_message loopback_massage;
 };
 
+struct core_msg{
+    long int msg_type;
+    union _msg msg;
+};
+
 struct _data{
 	char ip[20];
 	char port[6];
-	enum os os_type;
-	union core_msg data;
+	int os_type;
+	struct core_msg data;
 };
 
 struct _message {
