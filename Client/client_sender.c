@@ -1,10 +1,14 @@
 #include <sys/types.h>
+#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <ifaddrs.h>
@@ -20,13 +24,18 @@ key_t key;
 int msgid;
 
 char *send_buf;
-struct _core_msg message;
+struct core_msg message;
 struct _message to_send;
 FILE* log_file;
 
+char hostbuffer[256];
+char *IPbuffer;
+struct hostent *host_entry;
+int hostname;
+
 void log(char* log_data)
 {
-    fputs(log_file,log_data);
+    fputs(log_file,log_data);//file containing Error
     fputs(log_file,"\n");
 }
 
@@ -85,8 +94,7 @@ void init_message_queue()
 	key = ftok("Sender_Socket", 65);
 
 	msgid = msgget(key, 0666 | IPC_CREAT);
-	
-	if(key==-1)
+
 }
 
 void get_message_queue()
@@ -94,53 +102,106 @@ void get_message_queue()
 	msgrcv(msgid, &message, sizeof(message), 0, 0);
 }
 
+
+void checkHostName(int hostname)
+{
+    if (hostname == -1)
+    {
+        perror("gethostname");
+        exit(1);
+    }
+}
+
+void checkHostEntry(struct hostent * hostentry)
+{
+    if (hostentry == NULL)
+    {
+        perror("gethostbyname");
+        exit(1);
+    }
+}
+
+void checkIPbuffer(char *IPbuffer)
+{
+    if (NULL == IPbuffer)
+    {
+        perror("inet_ntoa");
+        exit(1);
+    }
+}
+
 void init_client()
 {
-    
-    message.message_type=0;
-    
-    message.message_data.ip = ;
-    
-    message.message_data.port="8080";
-    
+     // To retrieve hostname
+    hostname = gethostname(hostbuffer, sizeof(hostbuffer));
+    checkHostName(hostname);
+
+    // To retrieve host information
+    host_entry = gethostbyname(hostbuffer);
+    checkHostEntry(host_entry);
+
+    // To convert an Internet network address into ASCII string
+
+    IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
+
+    to_send.message_type = message.msg_type;
+
+    strcpy(to_send.message_data.ip ,IPbuffer);
+
+    strcpy(to_send.message_data.port ,"8080");
+
     if(LINUX)
     {
-        message.message_data.os_type=1;
+        to_send.message_data.os_type=1;
     }
     else
     {
-        message.message_data.os_type=0;
+        to_send.message_data.os_type=0;
     }
-    
+
     send_buf=(char*)message;
-    
+
     send_to_server();
-    
+
 }
 
+
 void process_buf()
-{    
+{
+
+    hostname = gethostname(hostbuffer, sizeof(hostbuffer));
+    checkHostName(hostname);
+    host_entry = gethostbyname(hostbuffer);
+    checkHostEntry(host_entry);
+    IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
+
     to_send.message_type = message.msg_type;
-    
+
     to_send.message_data.data = message;
-    
-    to_send.message_data.ip = ;
-    
-    to_send.message_data.port = ;
-    
-    to_send.message_data.os = LINUX;
-    
+
+    strcpy(to_send.message_data.ip ,IPbuffer);
+
+    strcpy(to_send.message_data.port ,"8080");
+
+    if(LINUX)
+    {
+        to_send.message_data.os_type=1;
+    }
+    else
+    {
+        to_send.message_data.os_type=0;
+    }
     send_buf = &to_send;
-    
+
 }
 
 int main()
 {
 
     log_file = fopen(log_path,"w");
-    
+
 	init_message_queue();
-	
+
 	init_client();
 
 	while (1)
