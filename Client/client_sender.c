@@ -7,10 +7,12 @@
 #include <netdb.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
+#include <ifaddrs.h>
 #include "message.h"
 
 #define his_ip "127.0.0.1"
 #define his_port "8090"
+#define log_path "client_sender.log"
 
 
 // For Message Queues
@@ -18,7 +20,15 @@ key_t key;
 int msgid;
 
 char *send_buf;
-struct _message message;
+struct _core_msg message;
+struct _message to_send;
+FILE* log_file;
+
+void log(char* log_data)
+{
+    fputs(log_file,log_data);
+    fputs(log_file,"\n");
+}
 
 int send_to_server()
 {
@@ -75,6 +85,8 @@ void init_message_queue()
 	key = ftok("Sender_Socket", 65);
 
 	msgid = msgget(key, 0666 | IPC_CREAT);
+	
+	if(key==-1)
 }
 
 void get_message_queue()
@@ -84,30 +96,21 @@ void get_message_queue()
 
 void init_client()
 {
-    struct _message message;
     
     message.message_type=0;
     
-    message.message_data.ip="";
+    message.message_data.ip = ;
     
-    message.message_data.port="";
+    message.message_data.port="8080";
     
-    if(WINDOWS)
+    if(LINUX)
     {
-        message.message_data.os_type=WINDOWS;
-    }
-    else if(LINUX)
-    {
-        message.message_data.os_type=LINUX;
+        message.message_data.os_type=1;
     }
     else
     {
-        message.message_data.os_type=NONE;
+        message.message_data.os_type=0;
     }
-    
-    message.message_data.data.client_info.ip="";
-    
-    message.message_data.data.client_info.port="";
     
     send_buf=(char*)message;
     
@@ -115,18 +118,35 @@ void init_client()
     
 }
 
+void process_buf()
+{    
+    to_send.message_type = message.msg_type;
+    
+    to_send.message_data.data = message;
+    
+    to_send.message_data.ip = ;
+    
+    to_send.message_data.port = ;
+    
+    to_send.message_data.os = LINUX;
+    
+    send_buf = &to_send;
+    
+}
+
 int main()
 {
+
+    log_file = fopen(log_path,"w");
+    
 	init_message_queue();
 	
 	init_client();
 
-	// System Call for opening Lab Admin
-
 	while (1)
 	{
 		get_message_queue();
-		send_buf = (char*)&message;
+		process_buf();
 		send_to_server();
 	}
 
