@@ -1,6 +1,6 @@
 # LAB ADMIN - For Linux Computer Labs
 
-<center><img src="acm.png" height="300" /></center>
+<img src="acm.png" height="300" />
 
 ## FEATURES:
 - File Transfer
