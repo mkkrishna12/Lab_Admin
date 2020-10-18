@@ -1,5 +1,5 @@
 # LAB ADMIN - For Computer Labs
-![WCE ACM Logo](acm.png){:height="24px" width="48px"}
+<img src="acm.png" height="24">
 ## FEATURES:
 - File Transfer
 - User Information
