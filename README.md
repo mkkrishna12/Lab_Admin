@@ -1,6 +1,8 @@
 # LAB ADMIN - For Linux Computer Labs
 
+<a href="https://wce.acm.org/">
 <img src="acm.png" height="300" />
+</s>
 
 ## FEATURES:
 - File Transfer
