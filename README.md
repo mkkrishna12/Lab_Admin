@@ -1,6 +1,6 @@
 # LAB ADMIN - For Linux Computer Labs
 
-<a href="https://wce.acm.org/">
+<a href="https://wce.acm.org/" target="_blank">
 <img src="acm.png" height="300" />
 </s>
 
