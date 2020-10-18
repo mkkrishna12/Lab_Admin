@@ -2,7 +2,7 @@
 
 <a href="https://wce.acm.org/" target="_blank">
 <img src="acm.png" height="300" />
-</s>
+</a>
 
 ## FEATURES:
 - File Transfer
