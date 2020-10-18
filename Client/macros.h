@@ -1,3 +1,5 @@
+enum messageType{Client_Initiation,User_Information,Script,File_Transfer,Loopback,Control_Server_Data};
+
 #if defined (_WIN32) || defined (_WIN64)
  #define Local_Database ""
  #define Bridge_File ""

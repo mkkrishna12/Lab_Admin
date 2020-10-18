@@ -132,11 +132,7 @@ void loopback_handler(struct _message message)
 
 void file_transfer_handler(struct _message message)
 {
-    if(WINDOWS)
-    {
-        system("file_transfer_win.exe");
-    }
-    else if(LINUX)
+    if(LINUX)
     {
         system("file_transfer_linux");
     }

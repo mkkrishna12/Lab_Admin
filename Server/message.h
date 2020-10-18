@@ -1,4 +1,5 @@
 struct  _user_info {
+  int TYPE;
 	char PRN[30];
 	char DATE[15];
 	char TIME[15];

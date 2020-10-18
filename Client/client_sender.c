@@ -241,7 +241,7 @@ int main()
 	{
 		get_message_queue();
 		
-		if(message.msg_type != 4)
+		if(message.msg_type != Control_Server_Data)
 		{
 		    process_buf();
 		    send_to_server();
