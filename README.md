@@ -9,15 +9,10 @@
 - Basic Functionalities - Any Script
 
 ## TECHNOLOGY USED:
-- Python(Qt5, Beautiful Soup): User interface and user authentication webscraping WCE Moodle.
+- Python(Qt5, Beautiful Soup): User interface and authentication by scraping [WCE Moodle](http://112.133.242.241/moodle/).
 - C Language(Sockets, IPC Message Queues): All core functionalities of application.
+- C++ (STL Containers): Efficient data manipulation.
 
 ## INVOLVEMENT OF DATA STRUCTURES:
 - Queue: Storing Requests and Responses
 - Ordered Map: Storing Client Information
-
-## LIMITATIONS:
-1. Server should be listening at a predefined port number.
-2. Clients may have any port number(whichever is free).
-
-## IMPLEMENTATION:
