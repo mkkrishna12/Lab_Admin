@@ -14,7 +14,7 @@
 
 ## INVOLVEMENT OF DATA STRUCTURES:
 - Queue: Storing Requests and Responses
-- Unordered Map: Storing Client Information
+- Ordered Map: Storing Client Information
 
 ## LIMITATIONS:
 1. Server should be listening at a predefined port number.
