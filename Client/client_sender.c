@@ -1,17 +1,23 @@
-#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+
+#include <sys/types.h>
 #include <errno.h>
+// Socket Libraries
 #include <sys/socket.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+
+// IPC Message Queue Libraries
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <ifaddrs.h>
 #include <signal.h>
+
+// User Defined Libraries
 #include "message.h"
 #include "macros.h"
 

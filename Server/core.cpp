@@ -8,9 +8,11 @@ using namespace std;
 
 map<KEY, VALUE*> Database;
 
-bool operator<(const KEY& t1, const KEY& t2) 
+bool operator<(const KEY& Client1, const KEY& Client2) 
 { 
-    return (t1.IP < t2.IP); 
+    Client1.TIMESTAMP.DATE
+    Client2.TIMESTAMP.DATE
+    
 } 
 
 void ClientInit(struct _message something)
