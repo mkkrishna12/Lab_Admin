@@ -1,5 +1,5 @@
 # LAB ADMIN - For Computer Labs
-<img src="acm.png" height="24">
+<img src="acm.png" height="100" />
 ## FEATURES:
 - File Transfer
 - User Information
