@@ -1,4 +1,4 @@
-# LAB ADMIN - For Computer Labs
+# LAB ADMIN - For Linux Computer Labs
 
 <img src="acm.png" height="300" />
 
