@@ -4,4 +4,4 @@
 
 ### Goto:
 
-- You can insert links in text like [this](https://github.com/suyashc222/Lab_Admin/tree/master/Client/Client_Interface)
+- [Client Interface](https://github.com/suyashc222/Lab_Admin/tree/master/Client/Client_Interface)
