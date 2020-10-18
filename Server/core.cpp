@@ -8,6 +8,11 @@ using namespace std;
 
 map<KEY, VALUE*> Database;
 
+bool operator<(const KEY& t1, const KEY& t2) 
+{ 
+    return (t1.IP < t2.IP); 
+} 
+
 void ClientInit(struct _message something)
 {
   KEY ClientInfo;
@@ -35,6 +40,7 @@ void UserInit(struct _message something)
   Database[ClientInfo]->USER_DATA->BRANCH = string(something.message_data.data.msg.user_info.BRANCH);
   Database[ClientInfo]->USER_DATA->PRN = string(something.message_data.data.msg.user_info.PRN);
   Database[ClientInfo]->USER_DATA->NAME = string(something.message_data.data.msg.user_info.NAME);
+
 }
 
 int main()

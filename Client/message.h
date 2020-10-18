@@ -1,5 +1,10 @@
 struct  _user_info {
 	char PRN[30];
+	char DATE[15];
+	char TIME[15];
+	char YEAR[6];
+	char BRANCH[30];
+	char NAME[50];
 };
 
 struct _script {
