@@ -7,11 +7,9 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <netdb.h>
-#include "message.h"
+#include "../Messages/message.h"
 
 #define my_port "8090"
-
-#define Script_Windows_Path "C://Lab_Admin/Scripts/windows_script_handler"
 
 #define Script_Linux_Path "/Lab_Admin/Scripts/linux_script_handler"
 

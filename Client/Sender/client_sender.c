@@ -18,11 +18,11 @@
 #include <signal.h>
 
 // User Defined Libraries
-#include "message.h"
+#include "../Messages/message.h"
 #include "macros.h"
 
-#define log_path "Logs/client_sender.log"
-#define server_data_path "Settings/server.txt"
+#define log_path "../Logs/client_sender.log"
+#define server_data_path "../Settings/server.txt"
 
 // For Message Queues
 key_t key;
