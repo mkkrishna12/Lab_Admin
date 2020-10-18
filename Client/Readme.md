@@ -1,3 +1,3 @@
 # Client Side Infrastructure 
-## Main Infrasturcture:
+### Main Infrasturcture:
 <img src="Plan/mainInfrastructure.svg">
