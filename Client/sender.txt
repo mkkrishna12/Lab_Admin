@@ -1,0 +1,2 @@
+gcc client_sender.c -o client_sender
+./client_sender

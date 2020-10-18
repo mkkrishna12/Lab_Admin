@@ -1,5 +1,4 @@
 #include <sys/types.h>
-#include <sys/types.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -12,12 +11,12 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <ifaddrs.h>
+#include <signal.h>
 #include "message.h"
+#include "macros.h"
 
-#define his_ip "127.0.0.1"
-#define his_port "8090"
-#define log_path "client_sender.log"
-
+#define log_path "Logs/client_sender.log"
+#define server_data_path "Settings/server.txt"
 
 // For Message Queues
 key_t key;
@@ -33,11 +32,8 @@ char *IPbuffer;
 struct hostent *host_entry;
 int hostname;
 
-void log(char* log_data)
-{
-    fputs(log_file,log_data);//file containing Error
-    fputs(log_file,"\n");
-}
+char his_ip[20];
+char his_port[6];
 
 int send_to_server()
 {
@@ -159,7 +155,7 @@ void init_client()
         to_send.message_data.os_type=0;
     }
 
-    send_buf=(char*)message;
+    send_buf=(char*)&message;
 
     send_to_server();
 
@@ -191,24 +187,69 @@ void process_buf()
     {
         to_send.message_data.os_type=0;
     }
-    send_buf = &to_send;
+    
+    send_buf = (char*)&to_send;
 
+}
+
+void process_control_message()
+{
+    strcpy(his_ip,message.msg.control_message.server_data.ip);
+    
+    strcpy(his_port,message.msg.control_message.server_data.port);
+
+}
+
+void report_log(char* log_data)
+{
+    fputs(log_data,log_file);
+    fputs("\n",log_file);
+    fclose(log_file);
+}
+
+void handle_signal()
+{
+    report_log("Termination Signal is Recived");
+    exit(1);
+}
+
+void parser_server_data()
+{
+    // Parser server_data_path variables
 }
 
 int main()
 {
-
     log_file = fopen(log_path,"w");
+    
+    if(signal(SIGINT,handle_signal) == SIG_ERR)
+        report_log("Unable to Catch SIGINT Signal");
+        
+    if(signal(SIGKILL,handle_signal) == SIG_ERR)
+        report_log("Unable to Catch SIGKILL Signal");
+        
+    if(signal(SIGTERM,handle_signal) == SIG_ERR)
+        report_log("Unable to Catch SIGTERM Signal");
 
 	init_message_queue();
+	
+	parse_server_data();
 
 	init_client();
 
 	while (1)
 	{
 		get_message_queue();
-		process_buf();
-		send_to_server();
+		
+		if(message.msg_type != 4)
+		{
+		    process_buf();
+		    send_to_server();
+		}	
+		else
+		{
+		    process_control_message();
+		}
 	}
 
 

@@ -15,11 +15,21 @@ struct _loopback_message {
 	char data[1024];
 };
 
+struct _server_data{
+    char ip[20];
+    char port[6];
+};
+
+union _control_message{
+    struct _server_data server_data;
+};
+
 union _msg {
 	struct _user_info user_info;
 	struct _script script;
 	struct _file_transfer file;
 	struct _loopback_message loopback_massage;
+	union _control_message control_message;
 };
 
 struct core_msg{
