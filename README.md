@@ -1,5 +1,5 @@
 # LAB ADMIN - For Computer Labs
-![WCE ACM Logo](https://github.com/suyashc222/Lab_Admin/blob/master/acm.png | width=100)
+![WCE ACM Logo](https://raw.githubusercontent.com/suyashc222/Lab_Admin/master/acm.png | width=100)
 ## FEATURES:
 - File Transfer
 - User Information
