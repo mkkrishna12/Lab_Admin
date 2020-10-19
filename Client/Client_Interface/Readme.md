@@ -1,2 +1,2 @@
 ### Client Interface Infrastructure:
-<img src="../Plan/clientInterfaceInfrasturcture.svg" height="500">
+<img src="../Plan/clientInterfaceInfrastructure.svg" height="500" />
