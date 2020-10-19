@@ -1,3 +1,5 @@
 # Sender Infrastructure
 
-<img src="../Plan/senderInfrastructure.svg" height="500">
+## Responsiblities of Sender:
+
+- Client Initiation
