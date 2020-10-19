@@ -3,8 +3,11 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <limits.h>
-#include "macros.h"
-#include "message.h"
+#include <string.h>
+
+#include "../Messages/message.h"
+
+#define File_Transfer ""
 
 void file_transfer(struct _message message){
 
@@ -13,7 +16,7 @@ void file_transfer(struct _message message){
 
     char file_name[100];
 
-    strcpy(file_name, message.message_data.file_transfer.file_name);
+    strcpy(file_name, message.message_data.data.msg.file.file_name);
 
 
     int k=strlen(File_Transfer);
@@ -52,8 +55,8 @@ void file_transfer(struct _message message){
 
     FILE *fLib = fopen(libPath , "w+");
     int j=0;
-    while(message.message_data.file_transfer.file_buffer[j]){
-        char ch = message.message_data.file_transfer.file_buffer[j];
+    while(message.message_data.data.msg.file.file_buffer[j]){
+        char ch = message.message_data.data.msg.file.file_buffer[j];
         fprintf(fLib,"%c",ch);
         j++;
     }
