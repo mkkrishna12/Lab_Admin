@@ -1,0 +1,6 @@
+
+<RCC>
+  <qresource prefix="logo">
+    <file>wce_logo.png</file>
+  </qresource>
+</RCC>
