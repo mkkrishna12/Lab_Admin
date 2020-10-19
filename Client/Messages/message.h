@@ -1,5 +1,5 @@
 struct  _user_info {
-  int TYPE;
+    int TYPE;
 	char PRN[30];
 	char DATE[15];
 	char TIME[15];
@@ -18,7 +18,12 @@ struct _file_transfer {
 };
 
 struct _loopback_message {
-	char data[1024];
+	char PRN[30];
+	char DATE[15];
+	char TIME[15];
+	char YEAR[6];
+	char BRANCH[30];
+	char NAME[50];
 };
 
 struct _server_data{

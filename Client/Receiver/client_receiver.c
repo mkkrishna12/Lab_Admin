@@ -9,15 +9,15 @@
 #include <netdb.h>
 #include "../Messages/message.h"
 
-#define my_port "8090"
-
-#define Script_Linux_Path "/Lab_Admin/Scripts/linux_script_handler"
+#define Script_Linux_Path "../Scripts/linux_script_handler"
+#define File_Transfer_Script "../File_Transfer/file_transfer"
 
 // For Message Queues
 key_t key;
 int msgid;
 
 char receive_buf[1600];
+char my_port[6];
 
 struct addrinfo hints;
 struct addrinfo *result, *rp;
@@ -105,15 +105,7 @@ void post_message_queue(struct _message message)
 
 void script_handler(struct _message message)
 {
-    if(WINDOWS)
-    {
-        char command[1024]={0};
-        strcpy(command,Script_Windows_Path);
-        strcat(command," ");
-        strcat(command,(char*)&message,sizeof(message));
-        system(command);
-    }
-    else if(LINUX)
+    if(LINUX)
     {
         system("");
     }
@@ -125,14 +117,20 @@ void script_handler(struct _message message)
 
 void loopback_handler(struct _message message)
 {
-    // Handeling Loopback Messages
+    struct core_msg loopback;
+    
+    /*
+        Extract User Info from Shared Memory
+    */
+    
+    // Send it to Client_Sender
 }
 
 void file_transfer_handler(struct _message message)
 {
     if(LINUX)
     {
-        system("file_transfer_linux");
+        system(File_Transfer_Script+" "+(char*) message);
     }
     else
     {
@@ -140,10 +138,15 @@ void file_transfer_handler(struct _message message)
     }
 }
 
+void parse_local_data()
+{
 
+}
 
 int main()
 {
+    parser_local_data();
+    
 	init_message_queue();
 
 	if(!receive_init())

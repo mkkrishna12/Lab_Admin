@@ -219,7 +219,7 @@ void handle_signal()
     exit(1);
 }
 
-int parser_server_data()
+int parse_server_data()
 {
     char *line_buf = NULL;
     size_t line_buf_size = 0;
@@ -229,7 +229,7 @@ int parser_server_data()
 
     if (!fp)
     {
-        fprintf(stderr, "Error opening file '%s'\n", server_data_path);
+        report_log("Error opening file : Server Data");
         return 0;
     }
 
@@ -316,7 +316,7 @@ int main()
 	init_message_queue();
 	
 	if(parse_server_data()==0)
-		//FILE OPENING FAILED
+		exit(0);
 
 	init_client();
 
