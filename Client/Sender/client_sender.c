@@ -215,13 +215,89 @@ void report_log(char* log_data)
 
 void handle_signal()
 {
-    report_log("Termination Signal is Recived");
+    report_log("Termination Signal is Received");
     exit(1);
 }
 
-void parser_server_data()
+int parser_server_data()
 {
-    // Parser server_data_path variables
+    char *line_buf = NULL;
+    size_t line_buf_size = 0;
+    int line_count = 0;
+    ssize_t line_size;
+    FILE *fp = fopen(server_data_path, "r");
+
+    if (!fp)
+    {
+        fprintf(stderr, "Error opening file '%s'\n", server_data_path);
+        return 0;
+    }
+
+    /* Get the first line of the file. */
+    line_size = getline(&line_buf, &line_buf_size, fp);
+    int c=1;
+    /* Loop through until we are done with the file. */
+    while (line_size >= 0)
+    {
+        /* Increment our line count */
+        line_count++;
+
+        char var_name[50] = {0};
+        char var_value[50] = {0};
+        int done = 0, i = 0, j = 0, k = 0;
+
+
+        for (i = 0; i < line_size ; i++)
+        {
+            if (line_buf[i] == '#')
+                break;
+            else if (line_buf[i] == '=')
+            {
+                done++;
+                continue;
+            }
+            else if (line_buf[i] == ' ' || line_buf[i] == '\t')
+                continue;
+
+            if (!done)
+            {
+                var_name[j] = line_buf[i];
+                j++;
+            }
+            else
+            {
+                var_value[k] = line_buf[i];
+                k++;
+            }
+        }
+
+        /* Show the line details */
+        if ( done && c && var_name[0] != '\0' && var_value[0] != '\0')
+        {
+
+            strcpy(his_ip,var_value);
+            c=0;
+
+        }
+        else if ( done && c==0 && var_name[0] != '\0' && var_value[0] != '\0')
+        {
+
+            strcpy(his_port,var_value);
+            c=1;
+
+        }
+        /* Get the next line */
+        line_size = getline(&line_buf, &line_buf_size, fp);
+    }
+
+    /* Free the allocated line buffer */
+    free(line_buf);
+    line_buf = NULL;
+
+    /* Close the file now that we are done with it */
+    fclose(fp);
+     return 1;
+   
 }
 
 int main()
@@ -239,7 +315,8 @@ int main()
 
 	init_message_queue();
 	
-	parse_server_data();
+	if(parse_server_data()==0)
+		//FILE OPENING FAILED
 
 	init_client();
 
