@@ -18,3 +18,6 @@
 ## INVOLVEMENT OF DATA STRUCTURES:
 - Queue: Storing Requests and Responses
 - Ordered Map: Storing Client Information
+
+## Documentation Links:
+- <a href="/Client">Client Side</a>
