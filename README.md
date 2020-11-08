@@ -11,7 +11,7 @@
 - Basic Functionalities - Any Script
 
 ## TECHNOLOGY USED:
-- Python(Qt5, Beautiful Soup): User interface and authentication by scraping [WCE Moodle](http://112.133.242.241/moodle/).
+- Python(Qt5, Beautiful Soup): User interface and authentication by scraping [WCE Moodle](http://112.133.242.241/moodle/) and Gmail SMTP Server.
 - C Language(Sockets, IPC Message Queues): All core functionalities of application.
 - C++ (STL Containers): Efficient data manipulation.
 
