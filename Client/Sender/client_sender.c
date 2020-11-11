@@ -33,11 +33,12 @@ struct core_msg message;
 struct _message to_send;
 FILE* log_file;
 
+//for host information
 char hostbuffer[256];
 char *IPbuffer;
 struct hostent *host_entry;
 int hostname;
-
+//ip and port client
 char his_ip[20];
 char his_port[6];
 
@@ -86,22 +87,31 @@ int send_to_server()
 	}
 
 	freeaddrinfo(result);
-
-	write(sock, send_buf, 1600);
+	if(write(sock, send_buf, 1600)==-1)
+		report_log("Write function failed to write");
 
 }
 
 void init_message_queue()
 {
+	//create key
 	key = ftok("Sender_Socket", 65);
-
+	if(key==-1)
+	report_log("Failed to create key value");
+	
+	//create identifier for message queue 
 	msgid = msgget(key, 0666 | IPC_CREAT);
+	
+	if(msgid==-1)
+	report_log("Failed to create identifier");
 
 }
 
 void get_message_queue()
 {
-	msgrcv(msgid, &message, sizeof(message), 0, 0);
+	
+	if(msgrcv(msgid, &message, sizeof(message), 0, 0)==-1)
+	report_log("Failed to receive message");
 }
 
 
@@ -125,7 +135,7 @@ void checkHostEntry(struct hostent * hostentry)
 
 void checkIPbuffer(char *IPbuffer)
 {
-    if (NULL == IPbuffer)
+    if (IPbuffer == NULL)
     {
         perror("inet_ntoa");
         exit(1);
@@ -145,6 +155,8 @@ void init_client()
     // To convert an Internet network address into ASCII string
 
     IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
+    if(IPbuffer==NULL)
+	report_log("Failed to convert into ASCII string");
 
     to_send.message_type = message.msg_type;
 
@@ -175,7 +187,11 @@ void process_buf()
     checkHostName(hostname);
     host_entry = gethostbyname(hostbuffer);
     checkHostEntry(host_entry);
+
+        // To convert an Internet network address into ASCII string
     IPbuffer = inet_ntoa(*((struct in_addr*)host_entry->h_addr_list[0]));
+    if(IPbuffer==NULL)
+	report_log("Failed to convert into ASCII string");
 
     to_send.message_type = message.msg_type;
 
@@ -210,7 +226,7 @@ void report_log(char* log_data)
 {
     fputs(log_data,log_file);
     fputs("\n",log_file);
-    fclose(log_file);
+    
 }
 
 void handle_signal()
@@ -286,6 +302,7 @@ int parse_server_data()
             c=1;
 
         }
+
         /* Get the next line */
         line_size = getline(&line_buf, &line_buf_size, fp);
     }
@@ -301,7 +318,7 @@ int parse_server_data()
 }
 
 int main()
-{
+{	/*doubt */
     log_file = fopen(log_path,"w");
     
     if(signal(SIGINT,handle_signal) == SIG_ERR)
