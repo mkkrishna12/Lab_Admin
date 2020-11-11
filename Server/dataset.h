@@ -14,9 +14,9 @@ struct _user{
 typedef struct _key{
   string IP;
   string PORT;
-  struct _timeStamp TIMESTAMP;
 } KEY;
 
 typedef struct _value{
   struct _user* USER_DATA;
+  struct _timeStamp *TIMESTAMP;
 } VALUE;
